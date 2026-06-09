@@ -63,6 +63,9 @@ export default function HomeDashboard() {
             highlight={challenge.title === 'Consistency Sprint'}
           />
         ))}
+        <Link href="/(tabs)/social" asChild>
+          <PrimaryButton variant="ghost">View rankings</PrimaryButton>
+        </Link>
       </GlassCard>
 
       <GlassCard>

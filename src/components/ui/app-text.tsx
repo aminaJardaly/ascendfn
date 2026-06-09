@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextProps, TextStyle } from 'react-native';
 
 import { Fonts, getThemeColors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -7,13 +7,15 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 type TextTone = 'primary' | 'secondary' | 'accent' | 'reward' | 'success' | 'danger';
 type TextVariant = 'hero' | 'title' | 'subtitle' | 'body' | 'caption' | 'stat';
 
-type AppTextProps = PropsWithChildren<{
+type AppTextProps = PropsWithChildren<
+  TextProps & {
   variant?: TextVariant;
   tone?: TextTone;
   style?: StyleProp<TextStyle>;
-}>;
+  }
+>;
 
-export function AppText({ children, variant = 'body', tone = 'primary', style }: AppTextProps) {
+export function AppText({ children, variant = 'body', tone = 'primary', style, ...textProps }: AppTextProps) {
   const scheme = useColorScheme();
   const colors = getThemeColors(scheme);
   const color =
@@ -30,7 +32,7 @@ export function AppText({ children, variant = 'body', tone = 'primary', style }:
               : colors.text;
 
   return (
-    <Text selectable style={[styles.base, styles[variant], { color }, style]}>
+    <Text selectable style={[styles.base, styles[variant], { color }, style]} {...textProps}>
       {children}
     </Text>
   );
