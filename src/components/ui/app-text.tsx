@@ -4,7 +4,7 @@ import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
 import { Fonts, getThemeColors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
-type TextTone = 'primary' | 'secondary' | 'accent' | 'reward';
+type TextTone = 'primary' | 'secondary' | 'accent' | 'reward' | 'success' | 'danger';
 type TextVariant = 'hero' | 'title' | 'subtitle' | 'body' | 'caption' | 'stat';
 
 type AppTextProps = PropsWithChildren<{
@@ -23,7 +23,11 @@ export function AppText({ children, variant = 'body', tone = 'primary', style }:
         ? colors.accent
         : tone === 'reward'
           ? colors.reward
-          : colors.text;
+          : tone === 'success'
+            ? colors.success
+            : tone === 'danger'
+              ? colors.danger
+              : colors.text;
 
   return (
     <Text selectable style={[styles.base, styles[variant], { color }, style]}>

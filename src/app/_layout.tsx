@@ -19,6 +19,7 @@ export default function RootLayout() {
         <Stack.Screen name="(auth)/login" options={{ title: 'Login' }} />
         <Stack.Screen name="(auth)/register" options={{ title: 'Create account' }} />
         <Stack.Screen name="(auth)/forgot-password" options={{ title: 'Reset password' }} />
+        <Stack.Screen name="onboarding" options={{ title: 'Onboarding' }} />
         <Stack.Screen name="goal-creation" options={{ title: 'Goal creation' }} />
       </Stack>
     </ThemeProvider>

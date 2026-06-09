@@ -3,14 +3,27 @@ import { StyleSheet, View } from 'react-native';
 import { AppScreen } from '@/components/ui/app-screen';
 import { AppText } from '@/components/ui/app-text';
 import { GlassCard } from '@/components/ui/glass-card';
-import { achievements } from '@/data/ascend';
+import { InfoRow } from '@/components/ui/info-row';
+import { PageHeader } from '@/components/ui/page-header';
 import { Colors, Radius, Spacing } from '@/constants/theme';
+import { achievements, rewardUnlocks } from '@/data/ascend';
 
 export default function RewardsScreen() {
   return (
     <AppScreen>
-      <AppText variant="title">Rewards</AppText>
-      <AppText tone="secondary">Badges, streaks, and unlocks that make progress feel visible.</AppText>
+      <PageHeader
+        eyebrow="Reward vault"
+        title="Rewards"
+        description="Badges, streaks, and unlocks that make progress feel visible."
+      />
+
+      <GlassCard accent>
+        <AppText variant="caption" tone="accent">
+          Current streak
+        </AppText>
+        <AppText variant="hero">18 days</AppText>
+        <AppText tone="secondary">Keep the streak alive to unlock the mentor voice pack after the boss level.</AppText>
+      </GlassCard>
 
       <View style={styles.grid}>
         {achievements.map((achievement) => (
@@ -22,9 +35,25 @@ export default function RewardsScreen() {
             </View>
             <AppText variant="subtitle">{achievement.title}</AppText>
             <AppText tone="secondary">{achievement.description}</AppText>
+            <AppText variant="caption" tone={achievement.state === 'Locked' ? 'secondary' : 'reward'}>
+              {achievement.state}
+            </AppText>
           </GlassCard>
         ))}
       </View>
+
+      <GlassCard>
+        <AppText variant="subtitle">Unlocks</AppText>
+        {rewardUnlocks.map((unlock) => (
+          <InfoRow
+            key={unlock.title}
+            label={unlock.title}
+            value={unlock.unlocked ? 'Unlocked' : 'Locked'}
+            meta={unlock.requirement}
+            highlight={unlock.unlocked}
+          />
+        ))}
+      </GlassCard>
     </AppScreen>
   );
 }
