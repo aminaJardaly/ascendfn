@@ -1,15 +1,26 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import { useColorScheme } from 'react-native';
+import { DarkTheme, ThemeProvider } from 'expo-router';
+import { Stack } from 'expo-router/stack';
+import { StatusBar } from 'expo-status-bar';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { Colors } from '@/constants/theme';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
+    <ThemeProvider value={DarkTheme}>
+      <StatusBar style="light" />
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: Colors.dark.background },
+          headerTintColor: Colors.dark.text,
+          headerShadowVisible: false,
+          contentStyle: { backgroundColor: Colors.dark.background },
+        }}>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)/login" options={{ title: 'Login' }} />
+        <Stack.Screen name="(auth)/register" options={{ title: 'Create account' }} />
+        <Stack.Screen name="(auth)/forgot-password" options={{ title: 'Reset password' }} />
+        <Stack.Screen name="goal-creation" options={{ title: 'Goal creation' }} />
+      </Stack>
     </ThemeProvider>
   );
 }
